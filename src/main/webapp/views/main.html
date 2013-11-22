@@ -1,0 +1,103 @@
+<div data-ng-controller="BlogCtrl">
+    <div id="content" class="row wrapper">
+
+        <div class="twelve columns">
+            <div data-ng-show="!editMode" class="medium primary btn"><a href="#" data-ng-click="editMode=!editMode">Add
+                a new Post</a></div>
+            <table class="rounded">
+                <tbody>
+                <tr ng-show="editMode">
+                    <td>
+                        <div class="row">
+                            <div class="three columns">
+                                <div class="medium primary btn"><a href="#" data-ng-click="save(); editMode=!editMode">Save Post</a></div>
+                                <div class="medium default btn"><a href="#" data-ng-click="editMode=!editMode">Cancel</a></div>
+                            </div>
+                            <div class="nine columns">
+                                <h3 class="field">
+                                    <input class="input" type="text" placeholder="Title" data-ng-model="newPost.title">
+                                </h3>
+
+                                <p class="field">
+                                    <textarea id="postcontent" class="input textarea xxwide yywide" data-msd-elastic="" placeholder="Your post here" data-ng-model="newPost.content"></textarea>
+                                </p>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr data-ng-repeat="post in posts">
+                    <td>
+                        <div class="row">
+                            <div class="two columns">
+                                <!--Capitalize the first letter of user name -- just for fun -->
+                                <p style="font-size: 0.9em">Author : <span style="font-weight: bold">{{post.user.fullname | limitTo:1 | uppercase}}{{post.user.fullname | limitTo:(-post.user.fullname.length +1)}}</span>
+                                </p>
+
+                                <p style="font-size: 0.8em">Created on : <span style="font-weight: bold">{{post.created |date:'dd/MM/yyyy @ h:mma'}}</span>
+                                </p>
+                            </div>
+                            <div class="nine columns">
+
+                                <h3>{{post.title}}</h3>
+
+                                <p>{{post.content}}</p>
+                            </div>
+                            <div ng-if="isOwner(post)" class="one columns">
+                                <a href="#" ng-click="delete(post)"><i class="icon-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                            <!--Capitalize the first letter of user name -- just for fun -->
+                            <p>Comments</p>
+                            </div>
+                            <div class="ten columns">
+                                <!--Use a filter 'array' to make an array if the back end does not give us one (is the case if there is only one comment)-->
+                                <div class="comment" data-ng-repeat="comment in post.comments|array">
+                                    <span class="comment-author">{{comment.author}}</span>
+                                    <span> </span>
+                                    <span class="comment-data">{{comment.content}}</span>
+                                </div>
+                                <form class="comment-form" ng-submit="sendComment(newComment,post.id)">
+                                    <div class="field">
+                                        <input class="xnarrow input" type="text" placeholder="your name" ng-model="newComment.author">
+                                    </div>
+                                    <div class="field">
+                                        <textarea class="narrow input textarea" data-msd-elastic="" data-key-enter="sendComment(newComment,post.id)" placeholder="Your comment" ng-model="newComment.content"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr ng-show="editMode">
+                    <td>
+                        <div class="row">
+                            <div class="three columns">
+                                <div class="medium primary btn"><a href="#" data-ng-click="save(); editMode=!editMode">Save
+                                    Post</a></div>
+                                <div class="medium default btn"><a href="#" data-ng-click="editMode=!editMode">Cancel</a></div>
+                            </div>
+                            <div class="nine columns">
+                                <h3 class="field">
+                                    <input class="input" type="text" placeholder="Title" ng-model="newPost.title">
+                                </h3>
+
+                                <p class="field">
+                                    <textarea class="input textarea xxwide yywide" data-msd-elastic="" placeholder="Your post here" ng-model="newPost.content"></textarea>
+                                </p>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div data-ng-show="!editMode" class="medium primary btn"><a href="#" data-ng-click="editMode=!editMode">Add
+                a new Post</a></div>
+        </div>
+    </div>
+</div>

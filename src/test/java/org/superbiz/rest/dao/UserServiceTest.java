@@ -46,7 +46,7 @@ public class UserServiceTest {
     public static void start() throws IOException {
         final File webApp = Archive.archive().copyTo("WEB-INF/classes", jarLocation(UserDAO.class)).asDir();
         final Properties p = new Properties();
-        p.setProperty(EJBContainer.APP_NAME, "rest-example");
+        p.setProperty(EJBContainer.APP_NAME, "tomee-angular-startup");
         p.setProperty(EJBContainer.PROVIDER, "tomee-embedded"); // need web feature
         p.setProperty(EJBContainer.MODULES, webApp.getAbsolutePath());
         p.setProperty(EmbeddedTomEEContainer.TOMEE_EJBCONTAINER_HTTP_PORT, "-1"); // random port
@@ -66,7 +66,7 @@ public class UserServiceTest {
         final User user = dao.create("foo", "dummy", "foo@dummy.org");
         assertNotNull(dao.find(user.getId()));
 
-        final String uri = "http://127.0.0.1:" + System.getProperty(EmbeddedTomEEContainer.TOMEE_EJBCONTAINER_HTTP_PORT) + "/rest-example/api";
+        final String uri = "http://127.0.0.1:" + System.getProperty(EmbeddedTomEEContainer.TOMEE_EJBCONTAINER_HTTP_PORT) + "/api";
         final UserServiceClientAPI client = JAXRSClientFactory.create(uri, UserServiceClientAPI.class);
         final User retrievedUser = client.show(user.getId());
         assertNotNull(retrievedUser);
@@ -80,7 +80,7 @@ public class UserServiceTest {
      * It allows to use cxf proxy to call remotely our rest service.
      * Any other way to do it is good.
      */
-    @Path("/api/user")
+    @Path("user")
     @Produces({"text/xml", "application/json"})
     public static interface UserServiceClientAPI {
 

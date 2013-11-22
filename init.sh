@@ -15,7 +15,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-base=http://localhost:8080/rest-example
+base=http://localhost:8080/tomee-angular-startup
 
 for i in {1..3}; do
 	curl -i -H "Accept: application/json" -X POST "$base/api/user?name=Wizard$i&pwd=simplest&&mail=supername$i@supercompany.com"
