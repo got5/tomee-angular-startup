@@ -1,6 +1,15 @@
-
 *.iml
 .idea/
 .svn
 target/
+src/main/webapp/components/
+src/main/webapp/images/
+src/main/webapp/scripts/
+src/main/webapp/styles/
+src/main/webapp/views/
+src/main/webapp/.htaccess
+src/main/webapp/*.html
+src/main/webapp/*.txt
+src/main/webapp/favicon.ico
+
 

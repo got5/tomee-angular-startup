@@ -16,148 +16,219 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.superbiz</groupId>
-  <artifactId>tomee-angular-startup</artifactId>
-  <packaging>war</packaging>
-  <version>1.1.0</version>
-  <name>OpenEJB :: Web Examples :: Angular Examples</name>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <openejb.version>4.6.0</openejb.version>
-    <tomee.version>1.6.0</tomee.version>
-  </properties>
-  <build>
-    <finalName>${project.artifactId}</finalName>
-    <defaultGoal>package</defaultGoal>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.0</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.1.1</version>
-        <configuration>
-          <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.openejb.maven</groupId>
-        <artifactId>tomee-maven-plugin</artifactId>
-        <version>1.6.0</version>
-        <configuration>
-          <context>ROOT</context>
-          <tomeeVersion>${tomee.version}</tomeeVersion>
-          <tomeeClassifier>plus</tomeeClassifier>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.openejb.maven</groupId>
-        <artifactId>tomee-embedded-maven-plugin</artifactId>
-        <version>1.6.0</version>
-        <dependencies>
-          <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.superbiz</groupId>
+    <artifactId>tomee-angular-startup</artifactId>
+    <packaging>war</packaging>
+    <version>1.1.0</version>
+    <name>OpenEJB :: Web Examples :: Angular Examples</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <openejb.version>4.6.0</openejb.version>
+        <tomee.version>1.6.0</tomee.version>
+    </properties>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <defaultGoal>package</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.openejb.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <context>ROOT</context>
+                    <tomeeVersion>${tomee.version}</tomeeVersion>
+                    <tomeeClassifier>plus</tomeeClassifier>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.openejb.maven</groupId>
+                <artifactId>tomee-embedded-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.openejb</groupId>
+                        <artifactId>tomee-jaxrs</artifactId>
+                        <version>1.6.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.googlecode.t7mp</groupId>
+                <artifactId>maven-t7-plugin</artifactId>
+                <version>0.9.7</version>
+                <configuration>
+                    <tomcatHttpPort>1234</tomcatHttpPort>
+                    <tomcatShutdownPort>13245</tomcatShutdownPort>
+                    <tomcatVersion>7.0.27</tomcatVersion>
+                    <webapps>
+                        <webappArtifact>
+                            <groupId>org.apache.openejb</groupId>
+                            <artifactId>tomee-plus-webapp</artifactId>
+                            <version>${tomee.version}</version>
+                            <contextPath>openejb</contextPath>
+                        </webappArtifact>
+                    </webapps>
+                </configuration>
+            </plugin>
+            <plugin> <!-- needed otherwise it will not work at runtime -->
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa-maven-plugin</artifactId>
+                <version>2.2.0</version>
+                <configuration>
+                    <includes>org/superbiz/rest/model/*.class</includes>
+                    <addDefaultConstructor>true</addDefaultConstructor>
+                    <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>enhancer</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.openjpa</groupId>
+                        <artifactId>openjpa</artifactId>
+                        <version>2.2.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>exec-gen-sources</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <skip>${skipFrontBuild}</skip>
+                            <target name="building">
+                                <echo>
+                                    --- NPM INSTALL --
+                                </echo>
+
+                                <exec executable="npm" dir="${project.basedir}/src/main/web/"
+                                      failonerror="true" osfamily="unix">
+                                    <arg line="install"/>
+                                </exec>
+
+                                <exec executable="cmd" dir="${project.basedir}/src/main/web/"
+                                      failonerror="true" osfamily="windows">
+                                    <arg line="/c npm install"/>
+                                </exec>
+
+                                <echo>-- BOWER INSTALL --</echo>
+
+
+                                <exec executable="bower" dir="${project.basedir}/src/main/web/"
+                                      failonerror="true" osfamily="unix">
+                                    <arg line="install --no-color"/>
+                                </exec>
+
+                                <exec executable="cmd" dir="${project.basedir}/src/main/web/"
+                                      failonerror="true" osfamily="windows">
+                                    <arg line="/c bower install --no-color"/>
+                                </exec>
+                                <echo>
+                                    -- GRUNT --
+                                </echo>
+
+                                <exec executable="grunt" dir="${project.basedir}/src/main/web/"
+                                      resultproperty="cmdresult" osfamily="unix">
+                                    <arg line="grunt build --no-color --force"/>
+                                </exec>
+
+                                <exec executable="cmd" dir="${project.basedir}/src/main/web/"
+                                      failonerror="true" osfamily="windows">
+                                    <arg line="/c grunt build --no-color --force"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0-5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>tomee-embedded</artifactId>
+            <version>${tomee.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>openejb-cxf-rs</artifactId>
+            <version>${openejb.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>tomee-jaxrs</artifactId>
+            <version>${tomee.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>ziplock</artifactId>
             <version>1.6.0</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>com.googlecode.t7mp</groupId>
-        <artifactId>maven-t7-plugin</artifactId>
-        <version>0.9.7</version>
-        <configuration>
-          <tomcatHttpPort>1234</tomcatHttpPort>
-          <tomcatShutdownPort>13245</tomcatShutdownPort>
-          <tomcatVersion>7.0.27</tomcatVersion>
-          <webapps>
-            <webappArtifact>
-              <groupId>org.apache.openejb</groupId>
-              <artifactId>tomee-plus-webapp</artifactId>
-              <version>${tomee.version}</version>
-              <contextPath>openejb</contextPath>
-            </webappArtifact>
-          </webapps>
-        </configuration>
-      </plugin>
-      <plugin> <!-- needed otherwise it will not work at runtime -->
-        <groupId>org.apache.openjpa</groupId>
-        <artifactId>openjpa-maven-plugin</artifactId>
-        <version>2.2.0</version>
-        <configuration>
-          <includes>org/superbiz/rest/model/*.class</includes>
-          <addDefaultConstructor>true</addDefaultConstructor>
-          <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
-        </configuration>
-        <executions>
-          <execution>
-            <id>enhancer</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>enhance</goal>
-            </goals>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa</artifactId>
-            <version>2.2.0</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-    </plugins>
-  </build>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>6.0-5</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.10</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>tomee-embedded</artifactId>
-      <version>${tomee.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>openejb-cxf-rs</artifactId>
-      <version>${openejb.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>tomee-jaxrs</artifactId>
-      <version>${tomee.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>ziplock</artifactId>
-      <version>1.6.0</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <!--
-  This section allows you to configure where to publish libraries for sharing.
-  It is not required and may be deleted.  For more information see:
-  http://maven.apache.org/plugins/maven-deploy-plugin/
-  -->
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <skipFrontBuild>false</skipFrontBuild>
+            </properties>
+        </profile>
+        <profile>
+            <id>skipFrontBuild</id>
+            <properties>
+                <skipFrontBuild>true</skipFrontBuild>
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>
