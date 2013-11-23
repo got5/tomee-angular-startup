@@ -62,11 +62,11 @@ public class UserServiceTest {
 
     @Test
     public void create() throws NamingException {
-        final UserDAO dao = (UserDAO) container.getContext().lookup("java:global/rest-example/UserDAO");
+        final UserDAO dao = (UserDAO) container.getContext().lookup("java:global/tomee-angular-startup/UserDAO");
         final User user = dao.create("foo", "dummy", "foo@dummy.org");
         assertNotNull(dao.find(user.getId()));
 
-        final String uri = "http://127.0.0.1:" + System.getProperty(EmbeddedTomEEContainer.TOMEE_EJBCONTAINER_HTTP_PORT) + "/api";
+        final String uri = "http://127.0.0.1:" + System.getProperty(EmbeddedTomEEContainer.TOMEE_EJBCONTAINER_HTTP_PORT) + "/tomee-angular-startup/api";
         final UserServiceClientAPI client = JAXRSClientFactory.create(uri, UserServiceClientAPI.class);
         final User retrievedUser = client.show(user.getId());
         assertNotNull(retrievedUser);

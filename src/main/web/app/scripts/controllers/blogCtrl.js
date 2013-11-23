@@ -49,7 +49,7 @@ app.controller('BlogCtrl', function ($scope,$filter, Restangular) {
         post.userId = parseInt(connectedUser.id);
 
         postR.post(post,post,"").then(function(fPost){
-            posts.push(fPost);
+            posts.push(fPost.p);
             console.log(fPost);
            // $scope.posts = posts;
         });

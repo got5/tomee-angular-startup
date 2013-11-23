@@ -32,7 +32,7 @@ import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @Path("post")
-@Produces({"text/xml", "application/json"})
+@Produces({"application/json"})
 public class PostService {
 
     @EJB

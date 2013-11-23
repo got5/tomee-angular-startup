@@ -24,7 +24,7 @@ import javax.ws.rs.*;
 import java.util.List;
 
 @Path("user")
-@Produces({"text/xml", "application/json"})
+@Produces({"application/json"})
 public class UserService {
 
     @EJB
