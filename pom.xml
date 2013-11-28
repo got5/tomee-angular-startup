@@ -177,6 +177,12 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.openejb</groupId>
+            <artifactId>tomee-embedded</artifactId>
+            <version>${tomee.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0-5</version>
             <scope>provided</scope>
@@ -185,12 +191,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.openejb</groupId>
-            <artifactId>tomee-embedded</artifactId>
-            <version>${tomee.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

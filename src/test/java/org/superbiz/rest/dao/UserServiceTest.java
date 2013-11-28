@@ -75,13 +75,20 @@ public class UserServiceTest {
         assertEquals("foo@dummy.org", retrievedUser.getEmail());
     }
 
+    @Test
+    public void createDao() throws NamingException {
+        final UserDAO dao = (UserDAO) container.getContext().lookup("java:global/tomee-angular-startup/UserDAO");
+        final User user = dao.create("foo", "dummy", "foo@bar.org");
+        assertNotNull(dao.find(user.getId()));
+    }
+
     /**
      * a simple copy of the unique method i want to use from my service.
      * It allows to use cxf proxy to call remotely our rest service.
      * Any other way to do it is good.
      */
     @Path("user")
-    @Produces({"text/xml", "application/json"})
+    @Produces({"application/json"})
     public static interface UserServiceClientAPI {
 
         @Path("/{id}")

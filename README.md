@@ -5,6 +5,7 @@ Based on the tomee rest-example at : [tomee rest-example]
 
 Usage 
 -----
+For now, if you are working on windows, please run it from cmd and not from git bash, cygwin or what else.
 
 
 
