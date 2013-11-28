@@ -3,6 +3,15 @@ tomee-angular-startup
 
 Based on the tomee rest-example at : [tomee rest-example]
 
+
+### Requirement
+
+* [NodeJS][node]
+* [Karma][karma]
+* [Grunt][grunt]
+* [Bower][bower]
+
+
 Usage 
 -----
 For now, if you are working on windows, please run it from cmd and not from git bash, cygwin or what else.
@@ -33,15 +42,6 @@ With this configuration, you don't need to bother with live reloading in the jav
 
 
 You need to configure and download some dependencies and tools. To be able to run all this,  Node, Bower, Grunt are required. 
-
-
-### Requirement
-
-* [NodeJS][node]
-* [Karma][karma]
-* [Grunt][grunt]
-* [Bower][bower]
-* [Yeoman][yo]
 
 
 Some of those can be install from Node.

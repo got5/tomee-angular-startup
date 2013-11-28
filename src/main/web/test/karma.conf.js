@@ -4,7 +4,7 @@
 module.exports = function(config) {
   config.set({
     // base path, that will be used to resolve files and exclude
-    basePath: '',
+    basePath: '../',
 
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
@@ -12,7 +12,10 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'app/components/angular/angular.js',
-      'app/components/angular-mocks/angular-mocks.js',
+      'app/components/underscore/underscore.js',
+      'app/components/restangular/dist/restangular.js',
+      'app/components/restangular/dist/restangular.js',
+      'app/components/angular-elastic/elastic.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'app/components/angular-mocks/angular-mocks.js',
@@ -23,7 +26,7 @@ module.exports = function(config) {
     exclude: [],
 
     // web server port
-    port: 8080,
+    port: 8081,
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
@@ -47,6 +50,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
+
   });
 };

@@ -11,5 +11,7 @@
     "angular-elastic": "~2.1.0",
     "angular-mocks": "~1.2.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "angular-mocks": "1.2"
+  }
 }
