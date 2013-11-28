@@ -15,7 +15,7 @@ Without building the angular app
 	mvn clean package tomee:run -P skipFrontBuild
 
 
-	
+open your browser at http://localhost:8080/
 
 The rest api is accessible from /api and the web app is at / 
 
